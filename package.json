@@ -1,0 +1,28 @@
+{
+  "name": "banish.js",
+  "version": "0.0.1",
+  "description": "Tiny javascript library to detect older browser and (politely) turn them away",
+  "main": "banish.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robotnoises/banish.git"
+  },
+  "keywords": [
+    "browser",
+    "detection",
+    "micro",
+    "drop-in"
+  ],
+  "author": "David Nichols",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/robotnoises/banish/issues"
+  },
+  "homepage": "https://github.com/robotnoises/banish",
+  "dependencies": {
+    "requirejs": "^2.1.16"
+  }
+}
