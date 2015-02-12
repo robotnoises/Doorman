@@ -2,7 +2,7 @@
   "name": "banish.js",
   "version": "0.0.1",
   "description": "Tiny javascript library to detect older browser and (politely) turn them away",
-  "main": "banish.js",
+  "main": "dist/banish.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +24,8 @@
   "homepage": "https://github.com/robotnoises/banish",
   "dependencies": {
     "requirejs": "^2.1.16"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11"
   }
 }
