@@ -1,2 +1,2 @@
-# banish
-Tiny javascript library to detect older browser and (politely) turn them away
+# detective.js
+Tiny javascript library to identify older browsers via feature detection and (politely) turn them away.
