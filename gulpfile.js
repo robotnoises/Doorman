@@ -18,7 +18,7 @@ var concat = require('gulp-concat');
 
 gulp.task('build', function() {
   return gulp.src(path.source)
-    .pipe(concat('banish.js'))
+    .pipe(concat('detective.js'))
     // This will output the non-minified version
     .pipe(gulp.dest(path.build))
     // This will minify and rename to foo.min.js
