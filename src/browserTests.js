@@ -1,10 +1,16 @@
 
 var browserTests = (function () {
 
-  // Begin tests
+  // Generic test handlers
 
-  var navigationTest = function () {
-    return false;
+  var propertyExistsInObject = function (prop, obj) {
+    return typeof obj === 'object' && Object.prototype.hasOwnProperty.call(obj, prop);
+  };
+
+  // Feature tests
+
+  var geolocationTest = function () {
+    return 'geolocation' in navigator;
   };
 
   var testTest = function () {
@@ -13,7 +19,7 @@ var browserTests = (function () {
 
   // Public test methods
   function public () {
-    this.navigation = navigationTest;
+    this.geolocation = geolocationTest;
     this.test = testTest;
   }
 

@@ -11,5 +11,4 @@
   window.detective = Object.create(new detective());
 
   return window.detective;
-
 }());

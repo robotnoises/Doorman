@@ -2,7 +2,7 @@
 
 // Todo: need to move this
 var validFeatures = [
-  'navigation',
+  'geolocation',
   'test'
 ];
 
