@@ -11,7 +11,7 @@ var investigate = function (toTest, redirectTo) {
   var features = [];
   var isValid = true;
 
-  // Check to see if toTest is undefined (test all) a string, an array
+  // Check to see if toTest is undefined (test all) a string, or an array
   if (typeof toTest === 'undefined') {
     features = validFeatures;
   } else if (typeof toTest === 'string') {
@@ -21,6 +21,7 @@ var investigate = function (toTest, redirectTo) {
   }
 
   for (var i = features.length; i--;) {
+    // Don't waste any more time if a previous test has already failed
     if (!this.isValid) break;
 
     var feature = features[i];
@@ -28,13 +29,6 @@ var investigate = function (toTest, redirectTo) {
     // If the feature is not listed as a valid feature to test, throw an Error
     if (!validFeatures.contains(feature)) {
       throw new Error(feature + ' is not a valid feature to test.');
-    }
-
-    // If a previous investigate() has failed (and it did not have a redirect url)
-    // either call redirect now (only in the case of a present  redirect url) or
-    // fall-through to the next function in the chain.
-    if (!this.isValid) {
-      return (redirectTo) ? this.redirect(redirectTo) : this;
     }
 
     // Check to see if test exists
@@ -45,5 +39,7 @@ var investigate = function (toTest, redirectTo) {
     this.isValid = browserTests[feature]();
   }
 
+  // If a feature test has failed and there is a redirect url in scope, call
+  // redirect now, else fall-through to the next function call in the chain
   return (!this.isValid && redirectTo) ? this.redirect(redirectTo) : this;
 };
