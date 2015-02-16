@@ -8,7 +8,5 @@
     this.redirect = redirect;
   };
 
-  window.doorman = Object.create(new doorman());
-
-  return window.doorman;
+  return (window.doorman = Object.create(new doorman()));
 }());
