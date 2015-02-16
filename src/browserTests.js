@@ -14,7 +14,7 @@ var browserTests = (function () {
   };
 
   var testTest = function () {
-    return true;
+    return false;
   };
 
   // Public test methods

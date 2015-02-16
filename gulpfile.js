@@ -22,11 +22,11 @@ gulp.task('build', function() {
   return gulp.src([
     './src/tools.js',
     './src/browserTests.js',
-    './src/investigate.js',
+    './src/check.js',
     './src/redirect.js',
-    './src/detective.js'
+    './src/doorman.js'
   ])
-    .pipe(concat('detective.js'))
+    .pipe(concat('doorman.js'))
     // This will output the non-minified version
     .pipe(gulp.dest(path.build))
     // This will minify and rename to foo.min.js
