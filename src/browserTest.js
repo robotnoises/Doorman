@@ -11,14 +11,14 @@ var browserTest = (function () {
     }
   };
 
-  var propertyExistsOnDummyElement = function (element) {
-    return !!document.createElement(element).getContext;
+  var propertyExistsOnDummyElement = function (element, prop) {
+    return !!document.createElement(element)[prop];
   };
 
   // Specific feature tests
 
   var canvasTest = function() {
-    return propertyExistsOnDummyElement('canvas');
+    return propertyExistsOnDummyElement('canvas', 'getContext');
   };
 
   var geolocationTest = function () {
