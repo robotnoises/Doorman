@@ -14,9 +14,19 @@ if (typeof Object.create !== 'function') {
 
 if (typeof Array.contains !== 'function') {
   Array.prototype.contains = function(string) {
+    var that = this;
     for(var i = this.length; i--;) {
-      if (this[i] === string) return true;
+      if (that[i] === string) return true;
     }
     return false;
+  };
+}
+
+// Method to strip a character from a string
+
+if (typeof String.removeChar !== 'function') {
+  String.prototype.removeChar = function(char) {
+    var that = this;
+    return that.split(char).join('');
   };
 }
