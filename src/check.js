@@ -1,11 +1,16 @@
 // check.js
 
-// Todo: need to move this
+// note: if a user wants to use a hyphen to separate their words, that's ok.
+// ex: .check('form-autofocus') ...
 var validFeatures = [
+  'formautofocus',
   'canvas',
   'geolocation',
+  'history',
   'localstorage',
+  'microdata',
   'offline',
+  'placeholder',
   'webworkers',
   'video'
 ];
@@ -28,7 +33,7 @@ var check = function (toTest, redirectTo) {
     // Don't waste any more time if a previous test has already failed
     if (!this.isValid) break;
 
-    var feature = features[i];
+    var feature = features[i].removeChar('-').toLowerCase();
 
     // If the feature is not listed as a valid feature to test, throw an Error
     if (!validFeatures.contains(feature)) {

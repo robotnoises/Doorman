@@ -11,14 +11,19 @@ var browserTest = (function () {
     }
   };
 
-  var propertyExistsOnDummyElement = function (element, prop) {
+  var propertyExistsOnDummyElement = function (prop, element) {
     return !!document.createElement(element)[prop];
   };
 
   // Specific feature tests
 
   var canvasTest = function() {
-    return propertyExistsOnDummyElement('canvas', 'getContext');
+    return propertyExistsOnDummyElement('getContext','canvas');
+  };
+
+  var formautofocusTest = function () {
+    // return propertyExistsOnDummyElement('autofocus', 'input');
+    return propertyExists('autofocus', document.createElement('input'));
   };
 
   var geolocationTest = function () {
@@ -38,12 +43,13 @@ var browserTest = (function () {
   };
 
   var videoTest = function () {
-    return propertyExistsOnDummyElement('video', 'canPlayType');
+    return propertyExistsOnDummyElement('canPlayType', 'video');
   };
 
   // Public test methods
   function public () {
     this.canvas = canvasTest;
+    this.formautofocus = formautofocusTest;
     this.geolocation = geolocationTest;
     this.localstorage = localStorageTest;
     this.offline = offlineTest;
