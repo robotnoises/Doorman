@@ -4,7 +4,10 @@
 var validFeatures = [
   'canvas',
   'geolocation',
-  'localStorage'
+  'localstorage',
+  'offline',
+  'webworkers',
+  'video'
 ];
 
 var check = function (toTest, redirectTo) {

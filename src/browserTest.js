@@ -29,11 +29,26 @@ var browserTest = (function () {
     return propertyExists('localStorage', window);
   };
 
+  var offlineTest = function () {
+    return propertyExists('applicationCache', window);
+  };
+
+  var webworkersTest = function () {
+    return propertyExists('Worker', window);
+  };
+
+  var videoTest = function () {
+    return propertyExistsOnDummyElement('video', 'canPlayType');
+  };
+
   // Public test methods
   function public () {
     this.canvas = canvasTest;
     this.geolocation = geolocationTest;
-    this.localStorage = localStorageTest;
+    this.localstorage = localStorageTest;
+    this.offline = offlineTest;
+    this.webworkers = webworkersTest;
+    this.video = videoTest;
   }
 
   return new public();
