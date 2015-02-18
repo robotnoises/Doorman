@@ -65,7 +65,6 @@
   };
 
   // Attach 'check' method to global 'doorman' object
-  doorman.check = check;
-  return doorman;
+  return (doorman.check = check);
 
 })(doorman || {});

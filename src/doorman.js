@@ -7,4 +7,5 @@ var doorman = (function () {
   };
 
   return Object.create(new public());
+  
 })();

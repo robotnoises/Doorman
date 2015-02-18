@@ -14,7 +14,6 @@
   };
 
   // Attach 'redirect' method to global doorman object
-  doorman.redirect = redirect;
-  return doorman;
+  return (doorman.redirect = redirect);
 
 })(doorman || {});

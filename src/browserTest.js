@@ -1,4 +1,5 @@
-// browserTest module for doorman.js
+// browserTest.js
+// All of the browser-specific feature tests
 
 (function (doorman) {
 
@@ -63,7 +64,6 @@
   };
 
   // Attach 'browserTest' object to global 'doorman' object
-  doorman.browserTest = Object.create(new browserTest());
-  return doorman;
+  return (doorman.browserTest = Object.create(new browserTest()));
 
 }(doorman || {}));
