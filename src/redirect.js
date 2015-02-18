@@ -1,11 +1,20 @@
 // redirect.js
-// Todo: test to see if valid url
+// Redirect a browser to a url
 
-var redirect = function (redirectTo) {
+(function (doorman) {
 
-  // Don't redirect if the browser is valid
-  if (this.isValid) return this;
+  // Todo: test to see if valid url
+  var redirect = function (redirectTo) {
 
-  // redirect to specified location or a default
-  window.location.replace(redirectTo || "http://whatbrowser.org/");
-};
+    // Don't redirect if the browser is valid
+    if (this.isValid) return this;
+
+    // redirect to specified location or a default
+    window.location.replace(redirectTo || "http://whatbrowser.org/");
+  };
+
+  // Attach 'redirect' method to global doorman object
+  doorman.redirect = redirect;
+  return doorman;
+
+})(doorman || {});

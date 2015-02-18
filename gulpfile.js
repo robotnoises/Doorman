@@ -21,10 +21,10 @@ var concat = require('gulp-concat');
 gulp.task('build', function() {
   return gulp.src([
     './src/tools.js',
+    './src/doorman.js',
     './src/browserTest.js',
     './src/check.js',
-    './src/redirect.js',
-    './src/doorman.js'
+    './src/redirect.js'
   ])
     .pipe(concat('doorman.js'))
     // This will output the non-minified version
