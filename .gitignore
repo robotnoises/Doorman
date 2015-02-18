@@ -30,6 +30,3 @@ node_modules
 # Output directories
 dist/
 
-# Example directories
-
-example/

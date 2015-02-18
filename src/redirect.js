@@ -1,5 +1,5 @@
-// redirect.js
-// Redirect a browser to a url
+// Name: redirect.js
+// Description: Redirect a browser to a url
 
 (function (doorman) {
 

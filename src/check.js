@@ -1,20 +1,19 @@
-// check.js
-// Checks to see if the current browser supports a certain feature
+// Name: check.js
+// Description: Checks to see if the current browser supports a certain feature
 
 // Valid features to test:
+// formautofocus
+// canvas
+// geolocation
+// history
+// localstorage
+// microdata
+// offline
+// placeholder
+// webworkers
+// video
 
-//   formautofocus
-//   canvas
-//   geolocation
-//   history
-//   localstorage
-//   microdata
-//   offline
-//   placeholder
-//   webworkers
-//   video
-
-// note: if a user wants to use a hyphen to separate their words thats ok.
+// Note: if a user wants to use a hyphen to separate their words thats ok.
 // ex: .check(form-autofocus) ...
 
 (function (doorman) {

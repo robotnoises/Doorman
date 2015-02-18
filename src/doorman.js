@@ -1,4 +1,5 @@
-// doorman.js
+// Name: doorman.js
+// Description: This is the main module
 
 var doorman = (function () {
 
@@ -7,5 +8,5 @@ var doorman = (function () {
   };
 
   return Object.create(new public());
-  
+
 })();
