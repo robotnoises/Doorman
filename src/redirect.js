@@ -3,7 +3,6 @@
 
 (function (doorman) {
 
-  // Todo: test to see if valid url
   var redirect = function (redirectTo) {
 
     // Don't redirect if the browser is valid
