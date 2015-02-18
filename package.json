@@ -1,27 +1,29 @@
 {
-  "name": "banish.js",
+  "name": "Doorman",
   "version": "0.0.1",
-  "description": "Tiny javascript library to detect older browser and (politely) turn them away",
-  "main": "dist/banish.js",
+  "description": "Tiny javascript library to identify older browsers via feature detection and (politely) turn them away.",
+  "main": "dist/doorman.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/robotnoises/banish.git"
+    "url": "https://github.com/robotnoises/Doorman.git"
   },
   "keywords": [
     "browser",
+    "old browser",
+    "html5",
+    "feature detection",
     "detection",
-    "micro",
-    "drop-in"
+    "doorman"
   ],
   "author": "David Nichols",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/robotnoises/banish/issues"
+    "url": "https://github.com/robotnoises/Doorman/issues"
   },
-  "homepage": "https://github.com/robotnoises/banish",
+  "homepage": "https://github.com/robotnoises/Doorman",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.8.11",
