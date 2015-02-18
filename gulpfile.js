@@ -21,7 +21,9 @@ var concat = require('gulp-concat');
 gulp.task('build', function() {
   return gulp.src([
     './src/tools.js',
+    // Main module
     './src/doorman.js',
+    // Modules for main methods
     './src/browserTest.js',
     './src/check.js',
     './src/redirect.js'
