@@ -38,18 +38,18 @@ gulp.task('build', function() {
 });
 
 ////////////////////////////////////////////////////////////////////////////////
-// Validate code using Doug Crockford's JSHint
+// Validate code using JSHint
 ////////////////////////////////////////////////////////////////////////////////
 
 // cli:
 //
-// gulp lint (runs jslint on all in src/)
-// gulp lint --file <fileName> (runs jslint on all in src/fileName.js)
-// gulp lint --file <fileName.js> (runs jslint on all in src/fileName.js)
+// gulp hint (runs jslint on all in src/)
+// gulp hint --file <fileName> (runs jslint on all in src/fileName.js)
+// gulp hint --file <fileName.js> (runs jslint on all in src/fileName.js)
 
 var jshint = require('gulp-jshint');
 
-gulp.task('lint', function() {
+gulp.task('hint', function() {
   var fileName = yargs.argv['file'] || '*';
   if (fileName.indexOf('.js') === -1) fileName = fileName + '.js';
 
