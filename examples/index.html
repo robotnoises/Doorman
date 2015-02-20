@@ -15,13 +15,14 @@
 
         // testing
         doorman
-          .check('form-auto-focus', 'http://www.google.com?failedAt=00')
-          .check('canvas', 'http://www.google.com?failedAt=0')
-          .check('geolocation', 'http://www.google.com?failedAt=1')
-          .check('local-storage', 'http://www.google.com?failedAt=2')
-          .check('offline', 'http://www.google.com?failedAt=3')
-          .check('web-workers', 'http://www.google.com?failedAt=4')
-          .check('video', 'http://www.google.com?failedAt=5');
+          .check('history').redirect('http://www.opentext.com');
+          // .check('form-auto-focus', 'http://www.google.com?failedAt=00')
+          // .check('canvas', 'http://www.google.com?failedAt=0')
+          // .check('geolocation', 'http://www.google.com?failedAt=1')
+          // .check('local-storage', 'http://www.google.com?failedAt=2')
+          // .check('offline', 'http://www.google.com?failedAt=3')
+          // .check('web-workers', 'http://www.google.com?failedAt=4')
+          // .check('video', 'http://www.google.com?failedAt=5');
 
         // doorman
         // .check('canvas')

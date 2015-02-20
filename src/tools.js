@@ -1,4 +1,5 @@
-// tools.js : A list of useful functions
+// Name: tools.js
+// Description: Some useful extensions
 
 // True prototypical object creation
 
