@@ -20,17 +20,17 @@ Modernizr is a much more feature-rich browser feature detection library that wil
 
 ### Feature detection vs. User-Agent
 
-One technique to detect a user's browser is by reading the `User-Agent`. When a browser sends a request to a server, the server should be able to identify the requesting browser by reading the User-Agent string in the request header. However, since [it is very easy for a user to change their User-Agent](http://www.howtogeek.com/113439/how-to-change-your-browsers-user-agent-without-installing-any-extensions/) and that they are, well, [actually pretty weird to begin with](http://webaim.org/blog/user-agent-string-history/), it is a widely-held belief that User-Agent is unreliable and should not be used for this purpose.
+One technique to detect a user's browser is by reading the `User-Agent`. When a browser sends a request to a server, the server should be able to identify the requesting browser by reading the User-Agent string in the request header. However, since [it is very easy for a user to change their User-Agent](http://www.howtogeek.com/113439/how-to-change-your-browsers-user-agent-without-installing-any-extensions/) and they are, well, [actually pretty weird to begin with](http://webaim.org/blog/user-agent-string-history/), it is a widely-held belief that User-Agent is unreliable and should not be used for this purpose.
 
 **tl;dr**: you can ask a browser for its name, but it can lie.
 
 `Feature detection` is a reliable technique because you are literally testing to see if the requesting browser can do specific things not commonly found in older versions.
 
-### Getting started / Basic usage
+### Getting started
 
-1.) Get the latest version (note: this has not released yet!)
+1.) Get the latest version
 
-2.) Include the script inside the `<head>` tag:
+2.) Include the script inside of the `<head>` tag:
 
 ```
 <!doctype html>
@@ -45,7 +45,23 @@ One technique to detect a user's browser is by reading the `User-Agent`. When a 
     </head>
 ```
 
-3.) At the bottom of your page, before the ending `</body>` tag:
+### Basic usage
+
+You'll want to place a script block in the `<head>`. Usually this is a bad idea, but in this case we want the script to execute early.
+
+#### Basic detect
+
+```
+...
+  <script>
+    // Redirect older browsers to whatbrowser.org (default redirect)
+    doorman.check().redirect();
+  </script>
+  </body>
+</html>
+```
+
+#### To redirect to a specific url
 
 ```
 ...
@@ -56,6 +72,41 @@ One technique to detect a user's browser is by reading the `User-Agent`. When a 
   </body>
 </html>
 ```
+
+#### To check for a specific feature
+
+```
+...
+  <script>
+    // Redirect browsers that do not support canvas to bar.net
+    doorman.check('canvas').redirect('http://www.bar.net');
+  </script>
+  </body>
+</html>
+```
+
+#### To check for a couple of features
+
+```
+...
+  <script>
+    // Redirect browsers that do not support canvas or history to bar.net
+    doorman.check(['canvas', 'history']).redirect('http://www.bar.net');
+    
+    // Note: you can also use chaining if you like that better, e.g.
+    
+    // doorman
+    //   .check('canvas')
+    //   .check('history'(
+    //   .redirect('http://www.bar.net');
+    
+  </script>
+  </body>
+</html>
+```
+
+
+
 
 ### Special thanks
 

@@ -1,4 +1,4 @@
-// Name: tools.js
+// Name: utils.js
 // Description: Some useful extensions
 
 // True prototypical object creation

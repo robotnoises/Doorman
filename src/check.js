@@ -43,8 +43,10 @@
 
       features = methodNames;
     }
+    
     // It's a single test
     else if (typeof toTest === 'string') features.push(toTest);
+    
     // It's an array
     else features = toTest;
 
@@ -59,6 +61,7 @@
     var features = getFeaturesToTest(toTest, tester);
 
     for (var i = features.length; i--;) {
+      
       // Dont waste any more time if a previous test has already failed
       if (!this.isValid) break;
 

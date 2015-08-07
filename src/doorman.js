@@ -1,12 +1,13 @@
 // Name: doorman.js
 // Description: This is the main module
 
-var doorman = (function () {
+document.doorman = (function () {
 
-  var public = function () {
+  var dm = function () {
     this.isValid = true;
+    this.check = {};
   };
 
-  return Object.create(new public());
+  return Object.create(new dm());
 
 })();
