@@ -37,10 +37,10 @@ if (typeof String.removeChar !== 'function') {
   };
 }
 
-// doorman.js 
+// Name: doorman.js
 // Description: This is the main module
 
-document.doorman = (function () {
+var doorman = (function () {
 
   var dm = function () {
     this.isValid = true;
