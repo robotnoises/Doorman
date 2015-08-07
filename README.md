@@ -6,7 +6,7 @@ Doorman is a small (~3kb minified) javascript library that identifies *older* br
 
 1.) Get the latest version `npm install doorman-js`
 
-2.) Include the script inside of the `<head>` tag:
+2.) Include doorman:
 
 ```
 <!doctype html>
@@ -17,7 +17,7 @@ Doorman is a small (~3kb minified) javascript library that identifies *older* br
         <title>Browser Test Example</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <script src="/node_modules/doorman-js/dist/doorman.min.js"></script>
+        <script src="node_modules/doorman-js/dist/doorman.min.js"></script>
     </head>
 ```
 
