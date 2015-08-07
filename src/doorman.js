@@ -1,4 +1,4 @@
-// Name: doorman.js
+// doorman.js 
 // Description: This is the main module
 
 document.doorman = (function () {

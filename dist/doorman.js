@@ -1,3 +1,8 @@
+// Doorman
+// Created by David Nichols
+// davenich@gmail.com
+// Version 0.1.2
+
 // Name: utils.js
 // Description: Some useful extensions
 
@@ -32,13 +37,14 @@ if (typeof String.removeChar !== 'function') {
   };
 }
 
-// Name: doorman.js
+// doorman.js 
 // Description: This is the main module
 
-var doorman = (function () {
+document.doorman = (function () {
 
   var dm = function () {
     this.isValid = true;
+    this.check = {};
   };
 
   return Object.create(new dm());
@@ -263,11 +269,7 @@ var doorman = (function () {
 
     // If a feature test has failed and there is a redirect url in scope call
     // redirect now else fall-through to the next function call in the chain
-    if (!this.isValid && redirectTo) {
-      this.redirect(redirectTo);
-    } else {
-      return this;
-    }
+    return (!this.isValid && redirectTo) ? this.redirect(redirectTo) : this;
   };
 
   // Attach 'check' method to global 'doorman' object

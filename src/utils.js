@@ -1,3 +1,8 @@
+// Doorman
+// Created by David Nichols
+// davenich@gmail.com
+// Version 0.1.2
+
 // Name: utils.js
 // Description: Some useful extensions
 
