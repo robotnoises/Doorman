@@ -1,6 +1,6 @@
 {
   "name": "doorman-js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A tiny javascript library to identify older browsers via feature detection and (politely) turn them away.",
   "main": "dist/doorman.js",
   "scripts": {
