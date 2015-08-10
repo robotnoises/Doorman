@@ -55,7 +55,7 @@
 
   // Public functions
 
-  var check = function (toTest, callback) {
+  var check = function (toTest, redirectTo) {
 
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
@@ -63,7 +63,7 @@
     for (var i = features.length; i--;) {
       
       // Dont waste any more time if a previous test has already failed
-      if (!this.valid) break;
+      if (!this.isValid) break;
 
       var feature = features[i].removeChar('-').toLowerCase();
 
@@ -73,16 +73,12 @@
       }
 
       // Run the test
-      this.valid = tester[feature]();
+      this.isValid = tester[feature]();
     }
-    
-    // If a user has provided a callback, return that,
-    // otherwise, fall-through to the next method call in the chain
-    if (typeof callback !== 'undefined') {
-      callback(this.valid, this.redirect);
-    } else {
-      return this;
-    }
+
+    // If a feature test has failed and there is a redirect url in scope call
+    // redirect now else fall-through to the next function call in the chain
+    return (!this.isValid && redirectTo) ? this.redirect(redirectTo) : this;
   };
 
   // Attach 'check' method to global 'doorman' object

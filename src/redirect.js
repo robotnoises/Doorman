@@ -6,7 +6,7 @@
   var redirect = function (redirectTo) {
 
     // Don't redirect if the browser is valid
-    if (this.valid) return this;
+    if (this.isValid) return this;
 
     // Redirect to specified location or a default
     window.location.replace(redirectTo || "http://whatbrowser.org/");
