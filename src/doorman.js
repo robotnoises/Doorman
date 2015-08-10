@@ -4,8 +4,8 @@
 var doorman = (function () {
 
   var dm = function () {
-    this.valid = true;
-    this.failed = [];
+    this.isValid = true;
+    this.check = {};
   };
 
   return Object.create(new dm());
