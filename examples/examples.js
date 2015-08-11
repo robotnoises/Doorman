@@ -32,8 +32,8 @@
 
 /* Check a few with callback and redirect */
 
-// doorman.check(['canvas', 'webworkers'], function (results, redirect) {
-//   if (!results.valid) {
+// doorman.check(['canvas', 'webworkers'], function (result, redirect) {
+//   if (!result.valid) {
 //     redirect('http://bing.com');
 //   }
 // });
@@ -41,8 +41,8 @@
 
 /* Check all with a callback and redirect */
 
-// doorman.check(function (results, redirect) {
-//   if (!results.valid) {
+// doorman.check(function (result, redirect) {
+//   if (!result.valid) {
 //     redirect('http://bing.com');
 //   }
 // });
@@ -52,13 +52,13 @@
 
 // doorman
 //   .check('webworkers') // if invalid, would redir to whatbrowser.org
-//   .check('canvas', function (results, redirect) {
-//     if (!results.valid) {
+//   .check('canvas', function (result, redirect) {
+//     if (!result.valid) {
 //       redirect('http://www.yahoo.com');
 //     }
 //   })
-//   .check('history', function (results, redirect) {
-//     if (!results.valid) {
+//   .check('history', function (result, redirect) {
+//     if (!result.valid) {
 //       redirect('http://www.google.com');
 //     }
 //   });

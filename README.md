@@ -31,7 +31,7 @@ You'll want to place a script block in the `<head>`. Usually this is a bad idea,
 ...
   <script>
     // Redirect older browsers to whatbrowser.org (default redirect)
-    doorman.check().redirect();
+    doorman.check();
   </script>
   </body>
 </html>
@@ -43,7 +43,11 @@ You'll want to place a script block in the `<head>`. Usually this is a bad idea,
 ...
   <script>
     // Redirect older browsers to foo.com
-    doorman.check().redirect('http://www.foo.com');
+    doorman.check(function (result, redirect) {
+      if (!result.valid) {
+        redirect('http://foo.com');
+      }
+    });
   </script>
   </body>
 </html>
@@ -54,8 +58,8 @@ You'll want to place a script block in the `<head>`. Usually this is a bad idea,
 ```
 ...
   <script>
-    // Redirect browsers that do not support canvas to bar.net
-    doorman.check('canvas').redirect('http://www.bar.net');
+    // Redirect browsers that do not support canvas to whatbrowser.org
+    doorman.check('canvas');
   </script>
   </body>
 </html>
@@ -66,15 +70,18 @@ You'll want to place a script block in the `<head>`. Usually this is a bad idea,
 ```
 ...
   <script>
-    // Redirect browsers that do not support canvas or history to bar.net
-    doorman.check(['canvas', 'history']).redirect('http://www.bar.net');
+    // Redirect browsers that do not support canvas or history to whatbrowser.org
+    doorman.check(['canvas', 'history']);
     
     // Note: you can also use chaining if you like that better, e.g.
     
     // doorman
-    //   .check('canvas')
-    //   .check('history')
-    //   .redirect('http://www.bar.net');
+    //   .check('canvas', function (result, redirect) {
+    //     if (!result.valid) { 
+    //       redirect('http://www.bar.com'); // will redirect to bar.com
+    //     } 
+    //   })
+    //   .check('history');
     
   </script>
   </body>
