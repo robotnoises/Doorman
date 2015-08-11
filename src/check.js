@@ -55,8 +55,27 @@
 
   // Public functions
 
-  var check = function (toTest, callback) {
-
+  var check = function () {
+    
+    // Potential parameters
+    var toTest;
+    var callback;
+    
+    // Get arguments
+    var args = Array.prototype.slice.call(arguments);
+    
+    for (var i = 0, max = args.length; i < max; i++)  {
+      // If the first arg is a function...
+      if (typeof args[i] === 'function') {
+        // Assume it's a callback
+        callback = args[i];
+      } else {
+        // else, assume it's a feature or features
+        toTest = args[i];
+      }
+    }
+    
+    // Build tests    
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
 
@@ -74,6 +93,7 @@
 
       // Run the test
       this.valid = tester[feature]();
+      this.failedTest = (this.valid) ? '' : feature;
     }
     
     // If a user has provided a callback, return that,

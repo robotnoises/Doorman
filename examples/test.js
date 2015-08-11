@@ -19,7 +19,7 @@
 
 // Check a few with callback and redirect
 
-doorman.check(['canvas', 'history'], function (isSupported, redirect) {
+doorman.check(function (isSupported, redirect) {
   if (!isSupported) {
     redirect();
   }

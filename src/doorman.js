@@ -5,7 +5,7 @@ var doorman = (function () {
 
   var dm = function () {
     this.valid = true;
-    this.failed = [];
+    this.failedTest = '';
   };
 
   return Object.create(new dm());

@@ -43,8 +43,8 @@ if (typeof String.removeChar !== 'function') {
 var doorman = (function () {
 
   var dm = function () {
-    this.isValid = true;
-    this.check = {};
+    this.valid = true;
+    this.failedTest = '';
   };
 
   return Object.create(new dm());
@@ -59,7 +59,7 @@ var doorman = (function () {
   var redirect = function (redirectTo) {
 
     // Don't redirect if the browser is valid
-    if (this.isValid) return this;
+    if (this.valid) return this;
 
     // Redirect to specified location or a default
     window.location.replace(redirectTo || "http://whatbrowser.org/");
@@ -246,15 +246,34 @@ var doorman = (function () {
 
   // Public functions
 
-  var check = function (toTest, redirectTo) {
-
+  var check = function () {
+    
+    // Potential parameters
+    var toTest;
+    var callback;
+    
+    // Get arguments
+    var args = Array.prototype.slice.call(arguments);
+    
+    for (var i = 0, max = args.length; i < max; i++)  {
+      // If the first arg is a function...
+      if (typeof args[i] === 'function') {
+        // Assume it's a callback
+        callback = args[i];
+      } else {
+        // else, assume it's a feature or features
+        toTest = args[i];
+      }
+    }
+    
+    // Build tests    
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
 
     for (var i = features.length; i--;) {
       
       // Dont waste any more time if a previous test has already failed
-      if (!this.isValid) break;
+      if (!this.valid) break;
 
       var feature = features[i].removeChar('-').toLowerCase();
 
@@ -264,12 +283,17 @@ var doorman = (function () {
       }
 
       // Run the test
-      this.isValid = tester[feature]();
+      this.valid = tester[feature]();
+      this.failedTest = (this.valid) ? '' : feature;
     }
-
-    // If a feature test has failed and there is a redirect url in scope call
-    // redirect now else fall-through to the next function call in the chain
-    return (!this.isValid && redirectTo) ? this.redirect(redirectTo) : this;
+    
+    // If a user has provided a callback, return that,
+    // otherwise, fall-through to the next method call in the chain
+    if (typeof callback !== 'undefined') {
+      callback(this.valid, this.redirect);
+    } else {
+      return this;
+    }
   };
 
   // Attach 'check' method to global 'doorman' object
