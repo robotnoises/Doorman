@@ -95,7 +95,7 @@
         
       // Dont waste any more time if a previous test has already failed
       if (!this.valid) break;
-  
+
       var feature = features[i].removeChar('-').toLowerCase();
   
       // Check to see if test exists
