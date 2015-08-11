@@ -76,7 +76,7 @@
     };
 
     var videoFormatsTest = function () {
-      if (!videoTest) return false;
+      if (!videoTest()) return false;
 
       var codecs = [
         'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
