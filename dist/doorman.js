@@ -43,8 +43,10 @@ if (typeof String.removeChar !== 'function') {
 var doorman = (function () {
   
   var dm = function () {
+
     this.valid = true;
     this.failedTest = '';
+
   };
 
   return Object.create(new dm());
@@ -267,7 +269,7 @@ var doorman = (function () {
         
       // Dont waste any more time if a previous test has already failed
       if (!this.valid) break;
-  
+
       var feature = features[i].removeChar('-').toLowerCase();
   
       // Check to see if test exists
