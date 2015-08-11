@@ -290,7 +290,7 @@ var doorman = (function () {
     // If a user has provided a callback, return that,
     // otherwise, fall-through to the next method call in the chain
     if (typeof callback !== 'undefined') {
-      callback(this.valid, this.redirect);
+      callback({ valid: this.valid, failedTest: this.failedTest }, this.redirect);
     } else {
       return this;
     }

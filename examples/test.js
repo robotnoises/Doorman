@@ -19,8 +19,9 @@
 
 // Check a few with callback and redirect
 
-doorman.check(function (isSupported, redirect) {
-  if (!isSupported) {
-    redirect();
+doorman.check('canvas', function (results, redirect) {
+  if (!results.valid) {
+    console.log(results.failedTest);
+    // redirect('http://bing.com');
   }
 });
