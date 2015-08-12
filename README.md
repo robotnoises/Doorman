@@ -33,8 +33,8 @@ IE9 also supports many modern features. If you'd like to support IE9, either che
 
 Doorman tests the browser for support of the following features:
 
-`string value of the test`
-
+| Test Name | Doorman String value |
+| --- | --- | 
 | Canvas | `canvas` |
 | Canvas Text | `canvas-text` |
 | Geolocation | `geolocation` |
