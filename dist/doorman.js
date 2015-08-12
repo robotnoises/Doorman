@@ -1,13 +1,12 @@
 // Doorman
 // Created by David Nichols
 // davenich@gmail.com
-// Version 0.1.2
+// Version 0.2.0
 
 // Name: utils.js
 // Description: Some useful extensions
 
 // True prototypical object creation
-
 if (typeof Object.create !== 'function') {
   Object.create = function(o) {
     function F() {}
@@ -17,7 +16,6 @@ if (typeof Object.create !== 'function') {
 }
 
 // Array.contains(a_string), returns true or false
-
 if (typeof Array.contains !== 'function') {
   Array.prototype.contains = function(string) {
     var that = this;
@@ -29,7 +27,6 @@ if (typeof Array.contains !== 'function') {
 }
 
 // Method to strip a character from a string
-
 if (typeof String.removeChar !== 'function') {
   String.prototype.removeChar = function(char) {
     var that = this;
@@ -64,7 +61,7 @@ var doorman = (function () {
 
   var browserTest = function () {
 
-    // Generic test/utility functions
+    /* Private */
 
     var propertyExistsOnObject = function (prop, obj) {
       try {
@@ -80,7 +77,7 @@ var doorman = (function () {
         document.createElement(element)[prop];
     };
 
-    // Specific feature tests
+    /* Specific feature tests */
 
     var canvasTest = function() {
       return !!createDummyElement('getContext','canvas');
@@ -148,7 +145,8 @@ var doorman = (function () {
       return true;
     };
 
-    // Public test methods
+    /* Public */
+    
     function methods () {
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;
@@ -194,11 +192,12 @@ var doorman = (function () {
 
 (function (doorman) {
   
-  // Flags
+  /* Flags */
+  
   var redirecting = false;
   
-  // Private functions
-
+  /* Private */
+  
   var getFeaturesToTest = function (toTest, tester) {
 
     var features = [];
@@ -230,8 +229,8 @@ var doorman = (function () {
     return features;
   };
   
-  // Public functions
-
+  /* Public */
+  
   var check = function () {
     
     // Potential parameters

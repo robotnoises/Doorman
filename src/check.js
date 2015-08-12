@@ -20,11 +20,12 @@
 
 (function (doorman) {
   
-  // Flags
+  /* Flags */
+  
   var redirecting = false;
   
-  // Private functions
-
+  /* Private */
+  
   var getFeaturesToTest = function (toTest, tester) {
 
     var features = [];
@@ -56,8 +57,8 @@
     return features;
   };
   
-  // Public functions
-
+  /* Public */
+  
   var check = function () {
     
     // Potential parameters
