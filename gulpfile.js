@@ -5,7 +5,8 @@ var yargs = require('yargs');
 var path = {
   source: './src/**/*.js',
   build: './dist/',
-  docs: './docs/'
+  docs: './docs/',
+  testAssembly: './test/assembled/'
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,12 +22,11 @@ var concat = require('gulp-concat');
 gulp.task('build', function() {
   return gulp.src([
     './src/utils.js',
-    // Main module
-    './src/doorman.js',
     // Modules for main methods
-    './src/redirect.js',
     './src/browserTest.js',
-    './src/check.js'
+    './src/check.js',
+    // Main module
+    './src/doorman.js'
   ])
     .pipe(concat('doorman.js'))
     // This will output the non-minified version
@@ -56,4 +56,17 @@ gulp.task('hint', function() {
   return gulp.src('./src/' + fileName)
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Run jasmine tests
+////////////////////////////////////////////////////////////////////////////////
+
+var jasmine = require('gulp-jasmine');
+
+gulp.task('test', function () {
+  return gulp.src(['./dist/doorman.js', './test/spec/DoormanSpec.js'])
+    .pipe(concat('unit-test.js'))
+    .pipe(gulp.dest(path.testAssembly))
+    .pipe(jasmine());
 });

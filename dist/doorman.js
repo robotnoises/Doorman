@@ -34,22 +34,6 @@ if (typeof String.removeChar !== 'function') {
   };
 }
 
-// Name: doorman.js
-// Description: This is the main module
-
-var doorman = (function () {
-  
-  var dm = function () {
-
-    this.valid = true;
-    this.failedTest = '';
-
-  };
-
-  return Object.create(new dm());
-
-})();
-
 // Name: browserTest.js
 // Description: All of the browser-specific feature tests
 
@@ -313,3 +297,19 @@ var doorman = (function () {
   return (doorman.check = check);
 
 })(doorman || {});
+
+// Name: doorman.js
+// Description: This is the main module
+
+var doorman = (function () {
+  
+  var dm = function () {
+
+    this.valid = true;
+    this.failedTest = '';
+
+  };
+
+  return Object.create(new dm());
+
+})();
