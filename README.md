@@ -21,14 +21,6 @@ Doorman is a small (~3kb minified) javascript library that identifies *older* br
     </head>
 ```
 
-### Basic usage
-
-You'll want to place a script block in the `<head>`. Usually this is a bad idea, but in this case we want the script to execute early.
-
-**In general, the browser will pass if it is at least IE 10, or above.**
-
-IE9 also supports many modern features. If you'd like to support IE9, either check for specific features, or check the failedTest in the callback.
-
 ### Default browser tests
 
 Doorman tests the browser for support of the following features:
@@ -48,6 +40,14 @@ Doorman tests the browser for support of the following features:
 | Web Workers | `web-workers` | 
 
 Note: The use of hyphens `-` is optional.
+
+### Basic usage
+
+You'll want to place a script block in the `<head>`. Usually this is a bad idea, but in this case we want the script to execute early.
+
+**In general, the browser will pass if it is at least IE 10, or above.**
+
+IE9 also supports many modern features. If you'd like to support IE9, either check for specific features, or check the failedTest in the callback.
 
 ### Examples
 
