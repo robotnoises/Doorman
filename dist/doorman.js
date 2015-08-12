@@ -59,7 +59,7 @@ var doorman = (function () {
 
 (function (doorman) {
 
-  var browserTest = function () {
+  var BrowserTests = function () {
 
     /* Private */
 
@@ -71,7 +71,7 @@ var doorman = (function () {
       }
     };
 
-    var createDummyElement = function (prop, element, optionalParam) {
+    var createDummyElement = function (element, prop, optionalParam) {
       return (optionalParam) ?
         document.createElement(element)[prop](optionalParam) :
         document.createElement(element)[prop];
@@ -80,13 +80,13 @@ var doorman = (function () {
     /* Specific feature tests */
 
     var canvasTest = function() {
-      return !!createDummyElement('getContext','canvas');
+      return !!createDummyElement('canvas', 'getContext');
     };
 
     var canvasTextTest = function () {
       if (!canvasTest()) return false;
 
-      var fakeContext = createDummyElement('getContext', 'canvas', '2d');
+      var fakeContext = createDummyElement('canvas', 'getContext', '2d');
       return (typeof fakeContext.fillText === 'function');
     };
 
@@ -124,7 +124,7 @@ var doorman = (function () {
     };
 
     var videoTest = function () {
-      return !!createDummyElement('canPlayType', 'video');
+      return !!createDummyElement('video', 'canPlayType');
     };
 
     var videoFormatsTest = function () {
@@ -132,27 +132,62 @@ var doorman = (function () {
 
       var codecs = [
         'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
-        'video/ogg; codecs="theora, vorbis"', // Theora video and Vorbis audio in an Ogg container
-        'video/webm; codecs="vp8, vorbis"' // Webm
+        'video/ogg; codecs="theora, vorbis"',         // Theora video and Vorbis audio in an Ogg container
+        'video/webm; codecs="vp8, vorbis"'            // Webm
       ];
 
-      for (var i = codecs.length; i--;) {
-        var type = codecs[i];
+      for (var i = 0, max = codecs.length; i < max; i++) {
         // canPlayType() will return an empty string if it doesn't think the browser can handle the video format
-        if (createDummyElement('canPlayType', 'video', type) === '') return false;
+        if (createDummyElement('video', 'canPlayType', codecs[i]) === '') return false;
       }
 
+      return true;
+    };
+    
+    var html5InputsTest = function () {
+
+      // Note: does not detect the following types due to limited adoption
+      
+      // color
+      // date
+      // month
+      // week
+      // time
+      // datetime
+      // datetime-local 
+      
+      var types = [
+        'search',
+        'number',
+        'range',
+        'tel',
+        'url',
+        'email'
+      ];
+      
+      for (var i = 0, max = types.length; i < max; i++) {
+        
+        var input = document.createElement('input');
+        input.setAttribute('type', types[i]);
+        
+        // If the browser can't handle the HTML5 input type, 
+        // it will retain the default value, which is "text""
+        if (input.type === 'text') return false;
+      }
+      
       return true;
     };
 
     /* Public */
     
-    function methods () {
+    function TestMethods() {
+      // Note: these need to be lower case
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;
       this.formautofocus = formAutoFocusTest;
       this.geolocation = geolocationTest;
       this.history = historyApiTest;
+      this.html5inputs = html5InputsTest;
       this.localstorage = localStorageTest;
       this.microdata = microdataTest;
       this.offline = offlineTest;
@@ -162,11 +197,11 @@ var doorman = (function () {
       this.videoformats = videoFormatsTest;
     }
 
-    return Object.create(new methods());
+    return Object.create(new TestMethods());
   };
 
   // Attach 'browserTest' object to global 'doorman' object
-  return (doorman.browserTest = Object.create(new browserTest()));
+  return (doorman.browserTest = Object.create(BrowserTests()));
 
 }(doorman || {}));
 
