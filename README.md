@@ -21,11 +21,37 @@ Doorman is a small (~3kb minified) javascript library that identifies *older* br
     </head>
 ```
 
+### Default browser tests
+
+Doorman tests the browser for support of the following features:
+
+| Test Name | Doorman String value |
+| --- | --- | 
+| Canvas | `canvas` |
+| Canvas Text | `canvas-text` |
+| Geolocation | `geolocation` |
+| History | `history` |
+| HTML5 Video | `video` |
+| HTML5 Input Types (search, number, range, tel, url, email) | `input-types` |
+| Local Storage | `local-storage` |
+| Offline | `offline` |
+| Input Autofocus | `autofocus` |
+| Input Placeholders | `placeholder` |
+| Web Workers | `web-workers` | 
+
+Note: The use of hyphens `-` is optional.
+
 ### Basic usage
 
 You'll want to place a script block in the `<head>`. Usually this is a bad idea, but in this case we want the script to execute early.
 
-#### Basic detect
+**In general, the browser will pass if it is at least IE 10, or above.**
+
+IE9 also supports many modern features. If you'd like to support IE9, either check for specific features, or check the failedTest in the callback.
+
+### Examples
+
+#### Basic test (IE 10+)
 
 ```
 ...
@@ -86,6 +112,27 @@ You'll want to place a script block in the `<head>`. Usually this is a bad idea,
   </script>
   </body>
 </html>
+```
+
+### Callbacks
+
+Each `.check()` has an optional callback. Each callback will recieve a *result* and a *redirect*.
+
+The `result` is an object that contains two properties: `valid` & `failedTest`. `valid` is whether or not the browser passed all of the tests and `failedTest` is a string indicating what test failed.
+
+The redirect is a function that can be called to redirect the user.
+
+E.g.
+
+```
+doorman.check(function (result, redir) {
+  // Only redirect if the browser doesn't support the canvas element
+  if (!result.valid) {
+    if (result.failedTest === 'canvas') {
+      redirect('http://www.foo.com');
+    }  
+  }
+});
 ```
 
 ### This is not a polyfill library.

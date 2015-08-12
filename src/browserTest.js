@@ -1,13 +1,15 @@
 // Name: browserTest.js
 // Description: All of the browser-specific feature tests
 
-// Note: These tests are pretty much just an implementation of Chapter 2 in
+// Note: These tests are pretty much just an implementation* of Chapter 2 in
 // Mark Pilgrim's "Dive Into HTML5," which is an amazing and informative book
 // that can be found here: http://diveintohtml5.info/detect.html
 
+// *Minus a few fatures that still have limited browser adoption.
+
 (function (doorman) {
 
-  var browserTest = function () {
+  var BrowserTests = function () {
 
     /* Private */
 
@@ -19,7 +21,7 @@
       }
     };
 
-    var createDummyElement = function (prop, element, optionalParam) {
+    var createDummyElement = function (element, prop, optionalParam) {
       return (optionalParam) ?
         document.createElement(element)[prop](optionalParam) :
         document.createElement(element)[prop];
@@ -28,13 +30,13 @@
     /* Specific feature tests */
 
     var canvasTest = function() {
-      return !!createDummyElement('getContext','canvas');
+      return !!createDummyElement('canvas', 'getContext');
     };
 
     var canvasTextTest = function () {
       if (!canvasTest()) return false;
 
-      var fakeContext = createDummyElement('getContext', 'canvas', '2d');
+      var fakeContext = createDummyElement('canvas', 'getContext', '2d');
       return (typeof fakeContext.fillText === 'function');
     };
 
@@ -55,10 +57,6 @@
       return propertyExistsOnObject('localStorage', window);
     };
 
-    var microdataTest = function () {
-      return propertyExistsOnObject('getItems', document);
-    };
-
     var offlineTest = function () {
       return propertyExistsOnObject('applicationCache', window);
     };
@@ -72,48 +70,64 @@
     };
 
     var videoTest = function () {
-      return !!createDummyElement('canPlayType', 'video');
+      return !!createDummyElement('video', 'canPlayType');
     };
 
-    var videoFormatsTest = function () {
-      if (!videoTest()) return false;
+    var html5InputsTest = function () {
 
-      var codecs = [
-        'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
-        'video/ogg; codecs="theora, vorbis"', // Theora video and Vorbis audio in an Ogg container
-        'video/webm; codecs="vp8, vorbis"' // Webm
+      // Note: does not detect the following types due to limited adoption
+      
+      // color
+      // date
+      // month
+      // week
+      // time
+      // datetime
+      // datetime-local 
+      
+      var types = [
+        'search',
+        'number',
+        'range',
+        'tel',
+        'url',
+        'email'
       ];
-
-      for (var i = codecs.length; i--;) {
-        var type = codecs[i];
-        // canPlayType() will return an empty string if it doesn't think the browser can handle the video format
-        if (createDummyElement('canPlayType', 'video', type) === '') return false;
+      
+      for (var i = 0, max = types.length; i < max; i++) {
+        
+        var input = document.createElement('input');
+        input.setAttribute('type', types[i]);
+        
+        // If the browser can't handle the HTML5 input type, 
+        // it will retain the default value, which is "text""
+        if (input.type === 'text') return false;
       }
-
+      
       return true;
     };
 
     /* Public */
     
-    function methods () {
+    function TestMethods() {
+      // Note: these need to be lower case
+      this.autofocus = formAutoFocusTest;
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;
-      this.formautofocus = formAutoFocusTest;
       this.geolocation = geolocationTest;
       this.history = historyApiTest;
+      this.inputtypes = html5InputsTest;
       this.localstorage = localStorageTest;
-      this.microdata = microdataTest;
       this.offline = offlineTest;
       this.placeholder = placeholderTest;
       this.webworkers = webWorkersTest;
       this.video = videoTest;
-      this.videoformats = videoFormatsTest;
     }
 
-    return Object.create(new methods());
+    return Object.create(new TestMethods());
   };
 
   // Attach 'browserTest' object to global 'doorman' object
-  return (doorman.browserTest = Object.create(new browserTest()));
+  return (doorman.browserTest = Object.create(BrowserTests()));
 
 }(doorman || {}));

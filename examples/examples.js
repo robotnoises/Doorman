@@ -1,16 +1,16 @@
 /* Check all features and redirect */
 
-// doorman.check().redirect('http://www.google.com');
+doorman.check();
 
 
 /* Check 1 feature and redirect */
 
-// doorman.check('canvas').redirect('http://www.google.com');
+// doorman.check('canvas');
 
 
 /* Check a couple of features... */
 
-// doorman.check(['canvas', 'history', 'webworkers']).redirect('http://www.google.com');
+// doorman.check(['canvas', 'history', 'webworkers']);
 
 
 /* Single feature test with callback */

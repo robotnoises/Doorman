@@ -7,13 +7,12 @@
 // canvastext
 // geolocation
 // history
+// html5 input types
 // localstorage
-// microdata
 // offline
 // placeholder
 // webworkers
 // video
-// videoformats
 
 // Note: if a user wants to use a hyphen to separate their words, thats ok.
 // ex: .check(form-autofocus) ...
@@ -92,7 +91,7 @@
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
   
-    for (var i = features.length; i--;) {
+    for (var i = 0, max = features.length; i < max; i++) {
         
       // Dont waste any more time if a previous test has already failed
       if (!this.valid) break;
