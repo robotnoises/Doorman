@@ -75,23 +75,6 @@
       return !!createDummyElement('video', 'canPlayType');
     };
 
-    var videoFormatsTest = function () {
-      if (!videoTest()) return false;
-
-      var codecs = [
-        'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
-        'video/ogg; codecs="theora, vorbis"',         // Theora video and Vorbis audio in an Ogg container
-        'video/webm; codecs="vp8, vorbis"'            // Webm
-      ];
-
-      for (var i = 0, max = codecs.length; i < max; i++) {
-        // canPlayType() will return an empty string if it doesn't think the browser can handle the video format
-        if (createDummyElement('video', 'canPlayType', codecs[i]) === '') return false;
-      }
-
-      return true;
-    };
-    
     var html5InputsTest = function () {
 
       // Note: does not detect the following types due to limited adoption
@@ -142,7 +125,6 @@
       this.placeholder = placeholderTest;
       this.webworkers = webWorkersTest;
       this.video = videoTest;
-      this.videoformats = videoFormatsTest;
     }
 
     return Object.create(new TestMethods());
