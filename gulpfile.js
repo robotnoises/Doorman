@@ -65,7 +65,7 @@ gulp.task('hint', function() {
 var jasmine = require('gulp-jasmine');
 
 gulp.task('test', function () {
-  return gulp.src(['./dist/doorman.js', './test/spec/DoormanSpec.js'])
+  return gulp.src(['./dist/doorman.js', './test/spec/*.js'])
     .pipe(concat('unit-test.js'))
     .pipe(gulp.dest(path.testAssembly))
     .pipe(jasmine());
