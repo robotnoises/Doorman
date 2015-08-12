@@ -18,17 +18,15 @@ if (typeof Object.create !== 'function') {
 // Array.contains(a_string), returns true or false
 if (typeof Array.contains !== 'function') {
   Array.prototype.contains = function(str) {
-    var that = this;
-    
     if (typeof str !== 'string') {
       throw new TypeError('Parameter ' + str + ' is not a string.');
+    } else {
+      var that = this;
+      for (var i = 0, max = this.length; i < max; i++) {
+        if (that[i] === str) return true;
+      }
+      return false;
     }
-    
-    for (var i = 0, max = this.length; i < max; i++) {
-      if (that[i] === str) return true;
-    }
-    
-    return false;
   };
 }
 
@@ -39,6 +37,20 @@ if (typeof String.removeChar !== 'function') {
     return that.split(char).join('');
   };
 }
+
+// Name: doorman.js
+// Description: This is the main module
+
+var doorman = (function () {
+  
+  var Dm = function () {
+    this.valid = true;
+    this.failedTest = '';
+  };
+
+  return Object.create(new Dm());
+
+})();
 
 // Name: browserTest.js
 // Description: All of the browser-specific feature tests
@@ -303,19 +315,3 @@ if (typeof String.removeChar !== 'function') {
   return (doorman.check = check);
 
 })(doorman || {});
-
-// Name: doorman.js
-// Description: This is the main module
-
-var doorman = (function () {
-  
-  var dm = function () {
-
-    this.valid = true;
-    this.failedTest = '';
-
-  };
-
-  return Object.create(new dm());
-
-})();

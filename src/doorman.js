@@ -3,13 +3,11 @@
 
 var doorman = (function () {
   
-  var dm = function () {
-
+  var Dm = function () {
     this.valid = true;
     this.failedTest = '';
-
   };
 
-  return Object.create(new dm());
+  return Object.create(new Dm());
 
 })();
