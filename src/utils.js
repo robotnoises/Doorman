@@ -17,12 +17,16 @@ if (typeof Object.create !== 'function') {
 
 // Array.contains(a_string), returns true or false
 if (typeof Array.contains !== 'function') {
-  Array.prototype.contains = function(string) {
-    var that = this;
-    for(var i = this.length; i--;) {
-      if (that[i] === string) return true;
+  Array.prototype.contains = function(str) {
+    if (typeof str !== 'string') {
+      throw new TypeError('Parameter ' + str + ' is not a string.');
+    } else {
+      var that = this;
+      for (var i = 0, max = this.length; i < max; i++) {
+        if (that[i] === str) return true;
+      }
+      return false;
     }
-    return false;
   };
 }
 
