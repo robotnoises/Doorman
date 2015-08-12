@@ -7,13 +7,12 @@
 // canvastext
 // geolocation
 // history
+// html5 input types
 // localstorage
-// microdata
 // offline
 // placeholder
 // webworkers
 // video
-// videoformats
 
 // Note: if a user wants to use a hyphen to separate their words, thats ok.
 // ex: .check(form-autofocus) ...

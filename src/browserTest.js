@@ -111,12 +111,12 @@
     
     function TestMethods() {
       // Note: these need to be lower case
+      this.autofocus = formAutoFocusTest;
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;
-      this.formautofocus = formAutoFocusTest;
       this.geolocation = geolocationTest;
       this.history = historyApiTest;
-      this.html5inputs = html5InputsTest;
+      this.inputtypes = html5InputsTest;
       this.localstorage = localStorageTest;
       this.offline = offlineTest;
       this.placeholder = placeholderTest;

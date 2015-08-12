@@ -1,7 +1,7 @@
 // Doorman
 // Created by David Nichols
 // davenich@gmail.com
-// Version 0.2.0
+// Version 0.2.1
 
 // Name: utils.js
 // Description: Some useful extensions
@@ -163,12 +163,12 @@ var doorman = (function () {
     
     function TestMethods() {
       // Note: these need to be lower case
+      this.autofocus = formAutoFocusTest;
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;
-      this.formautofocus = formAutoFocusTest;
       this.geolocation = geolocationTest;
       this.history = historyApiTest;
-      this.html5inputs = html5InputsTest;
+      this.inputtypes = html5InputsTest;
       this.localstorage = localStorageTest;
       this.offline = offlineTest;
       this.placeholder = placeholderTest;
@@ -193,13 +193,12 @@ var doorman = (function () {
 // canvastext
 // geolocation
 // history
+// html5 input types
 // localstorage
-// microdata
 // offline
 // placeholder
 // webworkers
 // video
-// videoformats
 
 // Note: if a user wants to use a hyphen to separate their words, thats ok.
 // ex: .check(form-autofocus) ...

@@ -1,8 +1,6 @@
 /* Check all features and redirect */
 
-doorman.check(function (result, redirect) {
-  var that = this;
-});
+doorman.check();
 
 
 /* Check 1 feature and redirect */
