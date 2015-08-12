@@ -9,7 +9,7 @@
 
   var browserTest = function () {
 
-    // Generic test/utility functions
+    /* Private */
 
     var propertyExistsOnObject = function (prop, obj) {
       try {
@@ -25,7 +25,7 @@
         document.createElement(element)[prop];
     };
 
-    // Specific feature tests
+    /* Specific feature tests */
 
     var canvasTest = function() {
       return !!createDummyElement('getContext','canvas');
@@ -76,7 +76,7 @@
     };
 
     var videoFormatsTest = function () {
-      if (!videoTest) return false;
+      if (!videoTest()) return false;
 
       var codecs = [
         'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
@@ -93,7 +93,8 @@
       return true;
     };
 
-    // Public test methods
+    /* Public */
+    
     function methods () {
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;

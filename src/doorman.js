@@ -2,10 +2,12 @@
 // Description: This is the main module
 
 var doorman = (function () {
-
+  
   var dm = function () {
-    this.isValid = true;
-    this.check = {};
+
+    this.valid = true;
+    this.failedTest = '';
+
   };
 
   return Object.create(new dm());

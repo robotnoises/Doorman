@@ -19,9 +19,13 @@
 // ex: .check(form-autofocus) ...
 
 (function (doorman) {
-
-  // Private functions
-
+  
+  /* Flags */
+  
+  var redirecting = false;
+  
+  /* Private */
+  
   var getFeaturesToTest = function (toTest, tester) {
 
     var features = [];
@@ -52,35 +56,74 @@
 
     return features;
   };
-
-  // Public functions
-
-  var check = function (toTest, redirectTo) {
-
+  
+  /* Public */
+  
+  var check = function () {
+    
+    // Potential parameters
+    var toTest;
+    var callback;
+    
+    // Get arguments
+    var args = Array.prototype.slice.call(arguments);
+    
+    for (var i = 0, max = args.length; i < max; i++)  {
+      // If the first arg is a function...
+      if (typeof args[i] === 'function') {
+        // Assume it's a callback
+        callback = args[i];
+      } else {
+        // else, assume it's a feature or features
+        toTest = args[i];
+      }
+    }
+    
+    // Redirect
+    var redirect = function (redirectTo) {
+      if (!redirecting) {
+        redirecting = true;
+        // Redirect to specified location or a default
+        window.location.replace(redirectTo || "http://whatbrowser.org/");  
+      }
+    };
+          
+    // Build tests    
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
-
+  
     for (var i = features.length; i--;) {
-      
+        
       // Dont waste any more time if a previous test has already failed
-      if (!this.isValid) break;
+      if (!this.valid) break;
 
       var feature = features[i].removeChar('-').toLowerCase();
-
+  
       // Check to see if test exists
       if (typeof tester[feature] !== 'function') {
         throw new Error(feature + ' is not a valid browser test.');
       }
-
+  
       // Run the test
-      this.isValid = tester[feature]();
+      this.valid = tester[feature]();
+      this.failedTest = (this.valid) ? '' : feature;
     }
-
-    // If a feature test has failed and there is a redirect url in scope call
-    // redirect now else fall-through to the next function call in the chain
-    return (!this.isValid && redirectTo) ? this.redirect(redirectTo) : this;
+      
+    // If a user has provided a callback... 
+    if (typeof callback !== 'undefined') {
+      callback({ valid: this.valid, failedTest: this.failedTest }, redirect);
+      return this;
+    } else {
+      if (this.valid) {
+        // If it's valid, just fall through to the next check
+        return this;
+      } else {
+        // Else, redirect
+        redirect();
+      }
+    }
   };
-
+  
   // Attach 'check' method to global 'doorman' object
   return (doorman.check = check);
 

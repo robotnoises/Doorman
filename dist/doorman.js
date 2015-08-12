@@ -1,13 +1,12 @@
 // Doorman
 // Created by David Nichols
 // davenich@gmail.com
-// Version 0.1.2
+// Version 0.2.0
 
 // Name: utils.js
 // Description: Some useful extensions
 
 // True prototypical object creation
-
 if (typeof Object.create !== 'function') {
   Object.create = function(o) {
     function F() {}
@@ -17,7 +16,6 @@ if (typeof Object.create !== 'function') {
 }
 
 // Array.contains(a_string), returns true or false
-
 if (typeof Array.contains !== 'function') {
   Array.prototype.contains = function(string) {
     var that = this;
@@ -29,7 +27,6 @@ if (typeof Array.contains !== 'function') {
 }
 
 // Method to strip a character from a string
-
 if (typeof String.removeChar !== 'function') {
   String.prototype.removeChar = function(char) {
     var that = this;
@@ -41,34 +38,17 @@ if (typeof String.removeChar !== 'function') {
 // Description: This is the main module
 
 var doorman = (function () {
-
+  
   var dm = function () {
-    this.isValid = true;
-    this.check = {};
+
+    this.valid = true;
+    this.failedTest = '';
+
   };
 
   return Object.create(new dm());
 
 })();
-
-// Name: redirect.js
-// Description: Redirect a browser to a url
-
-(function (doorman) {
-
-  var redirect = function (redirectTo) {
-
-    // Don't redirect if the browser is valid
-    if (this.isValid) return this;
-
-    // Redirect to specified location or a default
-    window.location.replace(redirectTo || "http://whatbrowser.org/");
-  };
-
-  // Attach 'redirect' method to global doorman object
-  return (doorman.redirect = redirect);
-
-})(doorman || {});
 
 // Name: browserTest.js
 // Description: All of the browser-specific feature tests
@@ -81,7 +61,7 @@ var doorman = (function () {
 
   var browserTest = function () {
 
-    // Generic test/utility functions
+    /* Private */
 
     var propertyExistsOnObject = function (prop, obj) {
       try {
@@ -97,7 +77,7 @@ var doorman = (function () {
         document.createElement(element)[prop];
     };
 
-    // Specific feature tests
+    /* Specific feature tests */
 
     var canvasTest = function() {
       return !!createDummyElement('getContext','canvas');
@@ -148,7 +128,7 @@ var doorman = (function () {
     };
 
     var videoFormatsTest = function () {
-      if (!videoTest) return false;
+      if (!videoTest()) return false;
 
       var codecs = [
         'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
@@ -165,7 +145,8 @@ var doorman = (function () {
       return true;
     };
 
-    // Public test methods
+    /* Public */
+    
     function methods () {
       this.canvas = canvasTest;
       this.canvastext = canvasTextTest;
@@ -210,9 +191,13 @@ var doorman = (function () {
 // ex: .check(form-autofocus) ...
 
 (function (doorman) {
-
-  // Private functions
-
+  
+  /* Flags */
+  
+  var redirecting = false;
+  
+  /* Private */
+  
   var getFeaturesToTest = function (toTest, tester) {
 
     var features = [];
@@ -243,35 +228,74 @@ var doorman = (function () {
 
     return features;
   };
-
-  // Public functions
-
-  var check = function (toTest, redirectTo) {
-
+  
+  /* Public */
+  
+  var check = function () {
+    
+    // Potential parameters
+    var toTest;
+    var callback;
+    
+    // Get arguments
+    var args = Array.prototype.slice.call(arguments);
+    
+    for (var i = 0, max = args.length; i < max; i++)  {
+      // If the first arg is a function...
+      if (typeof args[i] === 'function') {
+        // Assume it's a callback
+        callback = args[i];
+      } else {
+        // else, assume it's a feature or features
+        toTest = args[i];
+      }
+    }
+    
+    // Redirect
+    var redirect = function (redirectTo) {
+      if (!redirecting) {
+        redirecting = true;
+        // Redirect to specified location or a default
+        window.location.replace(redirectTo || "http://whatbrowser.org/");  
+      }
+    };
+          
+    // Build tests    
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
-
+  
     for (var i = features.length; i--;) {
-      
+        
       // Dont waste any more time if a previous test has already failed
-      if (!this.isValid) break;
+      if (!this.valid) break;
 
       var feature = features[i].removeChar('-').toLowerCase();
-
+  
       // Check to see if test exists
       if (typeof tester[feature] !== 'function') {
         throw new Error(feature + ' is not a valid browser test.');
       }
-
+  
       // Run the test
-      this.isValid = tester[feature]();
+      this.valid = tester[feature]();
+      this.failedTest = (this.valid) ? '' : feature;
     }
-
-    // If a feature test has failed and there is a redirect url in scope call
-    // redirect now else fall-through to the next function call in the chain
-    return (!this.isValid && redirectTo) ? this.redirect(redirectTo) : this;
+      
+    // If a user has provided a callback... 
+    if (typeof callback !== 'undefined') {
+      callback({ valid: this.valid, failedTest: this.failedTest }, redirect);
+      return this;
+    } else {
+      if (this.valid) {
+        // If it's valid, just fall through to the next check
+        return this;
+      } else {
+        // Else, redirect
+        redirect();
+      }
+    }
   };
-
+  
   // Attach 'check' method to global 'doorman' object
   return (doorman.check = check);
 
