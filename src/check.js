@@ -92,7 +92,7 @@
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
   
-    for (var i = features.length; i--;) {
+    for (var i = 0, max = features.length; i < max; i++) {
         
       // Dont waste any more time if a previous test has already failed
       if (!this.valid) break;

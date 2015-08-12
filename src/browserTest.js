@@ -1,9 +1,11 @@
 // Name: browserTest.js
 // Description: All of the browser-specific feature tests
 
-// Note: These tests are pretty much just an implementation of Chapter 2 in
+// Note: These tests are pretty much just an implementation* of Chapter 2 in
 // Mark Pilgrim's "Dive Into HTML5," which is an amazing and informative book
 // that can be found here: http://diveintohtml5.info/detect.html
+
+// *Minus a few fatures that still have limited browser adoption.
 
 (function (doorman) {
 
@@ -53,10 +55,6 @@
 
     var localStorageTest = function () {
       return propertyExistsOnObject('localStorage', window);
-    };
-
-    var microdataTest = function () {
-      return propertyExistsOnObject('getItems', document);
     };
 
     var offlineTest = function () {
@@ -120,7 +118,6 @@
       this.history = historyApiTest;
       this.html5inputs = html5InputsTest;
       this.localstorage = localStorageTest;
-      this.microdata = microdataTest;
       this.offline = offlineTest;
       this.placeholder = placeholderTest;
       this.webworkers = webWorkersTest;

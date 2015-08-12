@@ -53,9 +53,11 @@ var doorman = (function () {
 // Name: browserTest.js
 // Description: All of the browser-specific feature tests
 
-// Note: These tests are pretty much just an implementation of Chapter 2 in
+// Note: These tests are pretty much just an implementation* of Chapter 2 in
 // Mark Pilgrim's "Dive Into HTML5," which is an amazing and informative book
 // that can be found here: http://diveintohtml5.info/detect.html
+
+// *Minus a few fatures that still have limited browser adoption.
 
 (function (doorman) {
 
@@ -107,10 +109,6 @@ var doorman = (function () {
       return propertyExistsOnObject('localStorage', window);
     };
 
-    var microdataTest = function () {
-      return propertyExistsOnObject('getItems', document);
-    };
-
     var offlineTest = function () {
       return propertyExistsOnObject('applicationCache', window);
     };
@@ -127,23 +125,6 @@ var doorman = (function () {
       return !!createDummyElement('video', 'canPlayType');
     };
 
-    var videoFormatsTest = function () {
-      if (!videoTest()) return false;
-
-      var codecs = [
-        'video/mp4; codecs="avc1.42E01E, mp4a.40.2"', // H.264 Baseline video and AAC LC audio in an MPEG-4 container
-        'video/ogg; codecs="theora, vorbis"',         // Theora video and Vorbis audio in an Ogg container
-        'video/webm; codecs="vp8, vorbis"'            // Webm
-      ];
-
-      for (var i = 0, max = codecs.length; i < max; i++) {
-        // canPlayType() will return an empty string if it doesn't think the browser can handle the video format
-        if (createDummyElement('video', 'canPlayType', codecs[i]) === '') return false;
-      }
-
-      return true;
-    };
-    
     var html5InputsTest = function () {
 
       // Note: does not detect the following types due to limited adoption
@@ -189,12 +170,10 @@ var doorman = (function () {
       this.history = historyApiTest;
       this.html5inputs = html5InputsTest;
       this.localstorage = localStorageTest;
-      this.microdata = microdataTest;
       this.offline = offlineTest;
       this.placeholder = placeholderTest;
       this.webworkers = webWorkersTest;
       this.video = videoTest;
-      this.videoformats = videoFormatsTest;
     }
 
     return Object.create(new TestMethods());
@@ -299,7 +278,7 @@ var doorman = (function () {
     var tester = this.browserTest;
     var features = getFeaturesToTest(toTest, tester);
   
-    for (var i = features.length; i--;) {
+    for (var i = 0, max = features.length; i < max; i++) {
         
       // Dont waste any more time if a previous test has already failed
       if (!this.valid) break;
