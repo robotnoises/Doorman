@@ -5,7 +5,8 @@ var yargs = require('yargs');
 var path = {
   source: './src/**/*.js',
   build: './dist/',
-  docs: './docs/'
+  docs: './docs/',
+  testAssembly: './test/assembled/'
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,7 +25,6 @@ gulp.task('build', function() {
     // Main module
     './src/doorman.js',
     // Modules for main methods
-    './src/redirect.js',
     './src/browserTest.js',
     './src/check.js'
   ])
@@ -56,4 +56,15 @@ gulp.task('hint', function() {
   return gulp.src('./src/' + fileName)
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
+});
+
+////////////////////////////////////////////////////////////////////////////////
+// Run jasmine tests
+////////////////////////////////////////////////////////////////////////////////
+
+var jasmine = require('gulp-jasmine');
+
+gulp.task('test', function () {
+  return gulp.src(['./src/utils.js', './test/spec/*.js'])
+    .pipe(jasmine());
 });
