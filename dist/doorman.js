@@ -4,9 +4,9 @@
 // Version 0.2.1
 
 // Name: utils.js
-// Description: Some useful extensions
+// Description: Some useful stuff
 
-// True prototypical object creation
+// Doug Crockford's Object.create shim
 if (typeof Object.create !== 'function') {
   Object.create = function(o) {
     function F() {}
@@ -43,12 +43,12 @@ if (typeof String.removeChar !== 'function') {
 
 var doorman = (function () {
   
-  var Dm = function () {
-    this.valid = true;
-    this.failedTest = '';
+  var Dm = {
+    valid: true,
+    failedTest: ''
   };
 
-  return Object.create(new Dm());
+  return Object.create(Dm);
 
 })();
 
@@ -163,22 +163,22 @@ var doorman = (function () {
 
     /* Public */
     
-    function TestMethods() {
-      // Note: these need to be lower case
-      this.autofocus = formAutoFocusTest;
-      this.canvas = canvasTest;
-      this.canvastext = canvasTextTest;
-      this.geolocation = geolocationTest;
-      this.history = historyApiTest;
-      this.inputtypes = html5InputsTest;
-      this.localstorage = localStorageTest;
-      this.offline = offlineTest;
-      this.placeholder = placeholderTest;
-      this.webworkers = webWorkersTest;
-      this.video = videoTest;
+    var TestMethods = {
+      // Note: these need to be lower-case
+      autofocus: formAutoFocusTest,
+      canvas: canvasTest,
+      canvastext: canvasTextTest,
+      geolocation: geolocationTest,
+      history: historyApiTest,
+      inputtypes: html5InputsTest,
+      localstorage: localStorageTest,
+      offline: offlineTest,
+      placeholder: placeholderTest,
+      webworkers: webWorkersTest,
+      video: videoTest
     }
 
-    return Object.create(new TestMethods());
+    return Object.create(TestMethods);
   };
 
   // Attach 'browserTest' object to global 'doorman' object
@@ -255,13 +255,13 @@ var doorman = (function () {
     // Get arguments
     var args = Array.prototype.slice.call(arguments);
     
-    for (var i = 0, max = args.length; i < max; i++)  {
+    for (var i = 0, argsMax = args.length; i < argsMax; i++)  {
       // If the first arg is a function...
       if (typeof args[i] === 'function') {
         // Assume it's a callback
         callback = args[i];
       } else {
-        // else, assume it's a feature or features
+        // else, assume it's a specific feature or features to test
         toTest = args[i];
       }
     }
@@ -276,13 +276,13 @@ var doorman = (function () {
     };
           
     // Build tests    
-    var tester = this.browserTest;
+    var tester = doorman.browserTest;
     var features = getFeaturesToTest(toTest, tester);
   
-    for (var i = 0, max = features.length; i < max; i++) {
+    for (var i = 0, featuresMax = features.length; i < featuresMax; i++) {
         
       // Dont waste any more time if a previous test has already failed
-      if (!this.valid) break;
+      if (!doorman.valid) break;
 
       var feature = features[i].removeChar('-').toLowerCase();
   
@@ -292,16 +292,16 @@ var doorman = (function () {
       }
   
       // Run the test
-      this.valid = tester[feature]();
-      this.failedTest = (this.valid) ? '' : feature;
+      doorman.valid = tester[feature]();
+      doorman.failedTest = (doorman.valid) ? '' : feature;
     }
       
     // If a user has provided a callback... 
     if (typeof callback !== 'undefined') {
-      callback({ valid: this.valid, failedTest: this.failedTest }, redirect);
+      callback({ valid: doorman.valid, failedTest: doorman.failedTest }, redirect);
       return this;
     } else {
-      if (this.valid) {
+      if (doorman.valid) {
         // If it's valid, just fall through to the next check
         return this;
       } else {

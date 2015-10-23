@@ -109,22 +109,22 @@
 
     /* Public */
     
-    function TestMethods() {
-      // Note: these need to be lower case
-      this.autofocus = formAutoFocusTest;
-      this.canvas = canvasTest;
-      this.canvastext = canvasTextTest;
-      this.geolocation = geolocationTest;
-      this.history = historyApiTest;
-      this.inputtypes = html5InputsTest;
-      this.localstorage = localStorageTest;
-      this.offline = offlineTest;
-      this.placeholder = placeholderTest;
-      this.webworkers = webWorkersTest;
-      this.video = videoTest;
+    var TestMethods = {
+      // Note: these need to be lower-case
+      autofocus: formAutoFocusTest,
+      canvas: canvasTest,
+      canvastext: canvasTextTest,
+      geolocation: geolocationTest,
+      history: historyApiTest,
+      inputtypes: html5InputsTest,
+      localstorage: localStorageTest,
+      offline: offlineTest,
+      placeholder: placeholderTest,
+      webworkers: webWorkersTest,
+      video: videoTest
     }
 
-    return Object.create(new TestMethods());
+    return Object.create(TestMethods);
   };
 
   // Attach 'browserTest' object to global 'doorman' object

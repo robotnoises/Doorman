@@ -67,13 +67,13 @@
     // Get arguments
     var args = Array.prototype.slice.call(arguments);
     
-    for (var i = 0, max = args.length; i < max; i++)  {
+    for (var i = 0, argsMax = args.length; i < argsMax; i++)  {
       // If the first arg is a function...
       if (typeof args[i] === 'function') {
         // Assume it's a callback
         callback = args[i];
       } else {
-        // else, assume it's a feature or features
+        // else, assume it's a specific feature or features to test
         toTest = args[i];
       }
     }
@@ -88,13 +88,13 @@
     };
           
     // Build tests    
-    var tester = this.browserTest;
+    var tester = doorman.browserTest;
     var features = getFeaturesToTest(toTest, tester);
   
-    for (var i = 0, max = features.length; i < max; i++) {
+    for (var i = 0, featuresMax = features.length; i < featuresMax; i++) {
         
       // Dont waste any more time if a previous test has already failed
-      if (!this.valid) break;
+      if (!doorman.valid) break;
 
       var feature = features[i].removeChar('-').toLowerCase();
   
@@ -104,16 +104,16 @@
       }
   
       // Run the test
-      this.valid = tester[feature]();
-      this.failedTest = (this.valid) ? '' : feature;
+      doorman.valid = tester[feature]();
+      doorman.failedTest = (doorman.valid) ? '' : feature;
     }
       
     // If a user has provided a callback... 
     if (typeof callback !== 'undefined') {
-      callback({ valid: this.valid, failedTest: this.failedTest }, redirect);
+      callback({ valid: doorman.valid, failedTest: doorman.failedTest }, redirect);
       return this;
     } else {
-      if (this.valid) {
+      if (doorman.valid) {
         // If it's valid, just fall through to the next check
         return this;
       } else {

@@ -4,9 +4,9 @@
 // Version 0.2.1
 
 // Name: utils.js
-// Description: Some useful extensions
+// Description: Some useful stuff
 
-// True prototypical object creation
+// Doug Crockford's Object.create shim
 if (typeof Object.create !== 'function') {
   Object.create = function(o) {
     function F() {}
