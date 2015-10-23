@@ -122,7 +122,7 @@
       placeholder: placeholderTest,
       webworkers: webWorkersTest,
       video: videoTest
-    }
+    };
 
     return Object.create(TestMethods);
   };
