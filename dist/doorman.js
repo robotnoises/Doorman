@@ -176,7 +176,7 @@ var doorman = (function () {
       placeholder: placeholderTest,
       webworkers: webWorkersTest,
       video: videoTest
-    }
+    };
 
     return Object.create(TestMethods);
   };
@@ -279,12 +279,12 @@ var doorman = (function () {
     var tester = doorman.browserTest;
     var features = getFeaturesToTest(toTest, tester);
   
-    for (var i = 0, featuresMax = features.length; i < featuresMax; i++) {
+    for (var j = 0, featuresMax = features.length; j < featuresMax; j++) {
         
       // Dont waste any more time if a previous test has already failed
       if (!doorman.valid) break;
 
-      var feature = features[i].removeChar('-').toLowerCase();
+      var feature = features[j].removeChar('-').toLowerCase();
   
       // Check to see if test exists
       if (typeof tester[feature] !== 'function') {
